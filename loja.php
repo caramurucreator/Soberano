@@ -25,8 +25,8 @@
     <section class="hero">
 
         <div class="hero-text">
-            <h2>BEM VINDO À SOBERANO</h2>
-            <p>O LEGADO QUE VOCÊ <strong>VESTE!"</strong></p>
+            <h2>Bem-vindo à Soberano</h2>
+            <p>Daqui, você sai um verdadeiro <strong>"Rei do Gado!"</strong></p>
             <a href="produtos.php" class="btn">Ver Coleção</a>
         </div>
         <div class="hero-image">
