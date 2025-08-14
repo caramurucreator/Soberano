@@ -1,3 +1,11 @@
+<?php
+// compra.php
+session_start();
+require_once "conexao.php";
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -15,8 +23,7 @@
                 <ul>
                     <li><a href="index.php">Início</a></li>
                     <li><a href="produtos.php">Produtos</a></li>
-                    <li><a href="sobre.php">Sobre</a></li>
-                    <li><a href="contato.php">Contato</a></li>
+                    <li><a href="sobre.php">Nossa Empresa</a></li>
                 </ul>
             </nav>
         </div>
@@ -52,7 +59,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Soberano - Moda Country. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Soberano | Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>
