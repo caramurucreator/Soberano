@@ -50,8 +50,8 @@ section {
 }
 
 .navbar a:hover {
-    color: var(--main-color);
-    border-bottom: 0.1rem solid var(--main-color);
+    color: var(--black);
+    border-bottom: 0.1rem solid var(--black);
     padding-bottom: 0.5rem;
 }
 
