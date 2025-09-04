@@ -1,0 +1,165 @@
+/* ==============================
+   VARIÁVEIS GLOBAIS
+============================== */
+:root {
+    --main-color: #A38068;
+    --black: #13131a;
+    --bg: #010103;
+    --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+}
+
+
+/* ==============================
+   ESTILO PÁGINA ADMIN PRODUTOS
+============================== */
+body {
+    background: #fff;
+    padding: 2rem;
+    color: var(--black);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    color: var(--main-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+}
+
+a {
+    display: inline-block;
+    text-align: center;
+    padding: 0.8rem 1.3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1.5rem;
+    background-color: var(--main-color);
+    color: var(--black);
+    border: var(--border);
+}
+a:hover {
+    background-color: var(--black);
+    color: var(--main-color);
+    transform: scale(1.1);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    margin-top: 3rem;
+    margin-left: 38rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1.5rem;
+    background-color: var(--main-color);
+    color: #fff;
+    border: var(--border);
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: var(--black);
+    color: var(--main-color);
+    transform: scale(1.1);
+}
+
+/* ==============================
+   TABELA
+============================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background: #fafafa;
+    box-shadow: 0 0.6rem 1rem rgba(0,0,0,0.1);
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+table th {
+    background: var(--main-color);
+    color: white;
+    text-align: left;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+table tr:hover {
+    background: rgba(163,128,104,0.1);
+    transition: 0.2s;
+}
+
+table img {
+    border-radius: 0.4rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.2);
+}
+
+/* ==============================
+   AÇÕES
+============================== */
+td a {
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+td a:first-child {
+    background: var(--main-color);
+    color: white;
+}
+td a:first-child:hover {
+    background: var(--black);
+    color: var(--main-color);
+}
+
+td a:last-child {
+    background: crimson;
+    color: white;
+}
+td a:last-child:hover {
+    background: darkred;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+============================== */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 0.8rem;
+        padding: 1rem;
+        background: #fff;
+    }
+
+    td {
+        border: none;
+        padding: 0.5rem 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--main-color);
+    }
+}

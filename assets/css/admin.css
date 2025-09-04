@@ -253,6 +253,22 @@ header {
     transform: scale(1.1);
 }
 
+.logout-btn {
+    position: absolute;
+    right: -20rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1.5rem;
+    background-color: #D21404;
+    color: var(--bg);
+    border: var(--border);
+}
+.logout-btn:hover {
+    transform: scale(1.1);
+}
+
 
 /* ==============================
    TÍTULOS
@@ -501,205 +517,93 @@ footer {
     margin: 0.5rem 0;
 }
 
+
 /* ==============================
-   RESPONSIVIDADE COMPLETA (768px)
+   RESPONSIVIDADE DO CARRINHO
 ============================== */
 @media (max-width: 768px) {
-    /* HEADER */
-    header {
-        padding: 0.8rem 1.5rem;
+    .carrinho-wrapper {
+        flex-direction: column;
     }
-
-    .header-container {
-        flex-direction: row;
-        justify-content: space-between;
+    .carrinho-item {
+        flex-direction: column;
+        align-items: center;
     }
-
-    .logo img {
-        margin-left: 0;
-        max-width: 150px;
+    .carrinho-item img {
+        max-width: 100px;
     }
+    .item-info {
+        text-align: center;
+    }
+    .quantidade {
+        margin-top: 1rem;
+    }
+    .carrinho-total {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+@media (max-width: 1024px) {
+    .carrinho-wrapper {
+        flex-direction: column;
+    }
+    .carrinho-summary {
+        width: 100%;
+    }
+}
 
-    /* NAVBAR - MENU HAMBÚRGUER */
+
+
+
+/* ==============================
+   RESPONSIVIDADE
+============================== */
+@media (max-width: 768px) {
     nav {
         display: none;
         flex-direction: column;
-        gap: 1rem;
         background-color: var(--main-color);
         border: 2px solid var(--black);
-        border-radius: 0 0 1rem 1rem;
         position: absolute;
-        top: 100%;
+        top: 70px;
         left: 0;
-        width: 100%;
-        padding: 1rem 0;
-        box-shadow: 0 0.6rem 1rem rgba(0,0,0,0.2);
-        z-index: 90;
+        width: 200px;
+        padding: 5px;
     }
 
     nav.active {
         display: flex;
-        animation: slideDown 0.3s ease forwards;
     }
 
     nav a {
         display: block;
-        font-size: 1.4rem;
-        padding: 0.6rem 0;
-        text-align: center;
+        padding: 10px 0;
     }
 
     .menu-toggle {
         display: flex;
-        z-index: 100;
     }
 
-    /* animação suave */
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+    .logo img {
+        margin-left: 0;
+        max-width: 200px;
     }
 
-    /* BANNERS */
-    .sobre, .banner1 {
-        height: auto;
-        min-height: 350px;
-        background-size: cover;
-        background-position: center;
-        margin-top: 7rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 2rem 1rem;
-    }
-
-    /* CONTEÚDO */
-    /* BLOCO .conteudo (banner da seção "sobre") */
-    .conteudo {
-        position: static;
-        max-width: 100%;
-        padding: 1rem;
-        align-items: center;
-        text-align: center;
-    }
-
-    .conteudo h3 {
-        font-size: 2.5rem;
-        text-align: center;
-    }
-
-    .conteudo p {
-        font-size: 1.4rem;
-        line-height: 1.6;
-        text-align: center;
-    }
-
-    .conteudo .btn {
-        margin: 2rem auto 0 auto;
-        display: block;
-        left: auto;
-    }
-
-    /* BLOCO .content (banner da seção inicial) */
-    .content {
-        position: static;
-        max-width: 100%;
-        padding: 1.5rem;
-        align-items: center;
-        text-align: center;
-    }
-
-    .content h3 {
-        font-size: 2.8rem;
-        text-align: center;
-    }
-
-    .content p {
-        font-size: 1.5rem;
-        line-height: 1.6;
-        text-align: center;
-    }
-
-    .content .btn {
-        margin: 2rem auto 0 auto;
-        display: inline-block;
-    }
-
-    /* BOTÕES */
-    .btn, .botao {
-        font-size: 1.1rem;
-        padding: 0.7rem 1.2rem;
-        margin: 2rem auto 0 auto;
-        display: block;
-    }
-
-    /* FOOTER */
-    footer {
+    .banner1 {
+        background: url("../img/banner.webp") no-repeat;
+        background-position: right;
         position: relative;
-        bottom: auto;
-        padding: 2rem 1rem;
-        text-align: center;
+        height: auto;
+        margin-top: auto;
+        align-items: center;
     }
 
-    .row-footer {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
+    .title {
+        font-size: auto;
     }
 
     .footer-col {
-        width: 100%;
-        margin-bottom: 1.5rem;
-    }
-
-    .footer-col h4 {
-        font-size: 18px;
-    }
-
-    .footer-col ul li a {
-        font-size: 14px;
-    }
-
-    .footer-col .form-sub input,
-    .footer-col .form-sub button {
-        font-size: 14px;
-        padding: 0.7rem;
-    }
-
-    /* CARRINHO */
-    .carrinho-wrapper {
-        flex-direction: column;
-    }
-
-    .carrinho-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .carrinho-item img {
-        max-width: 90px;
-        margin-bottom: 1rem;
-    }
-
-    .item-info {
-        padding: 0;
-    }
-
-    .quantidade {
-        justify-content: center;
-        margin-top: 1rem;
-    }
-
-    .carrinho-total {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .carrinho-summary {
-        width: 100%;
-        margin-top: 2rem;
+        width: 50%;
+        margin-bottom: 30px;
     }
 }

@@ -1,0 +1,293 @@
+/* ==============================
+   VARIÁVEIS GLOBAIS
+============================== */
+:root {
+    --main-color: #A38068;
+    --black: #13131a;
+    --bg: #010103;
+    --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+}
+
+/* ==============================
+   RESET & BASE
+============================== */
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s linear;
+    text-transform: capitalize;
+    font-family: "Fredericka the Great", serif;
+}
+
+body {
+    background-color: #fff;
+}
+
+section {
+    padding: 2rem 1.3rem;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+/* ==============================
+   HEADER
+============================== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    width: 100%;
+    background-color: var(--main-color);
+    border-bottom: 0.3rem solid var(--black);
+    box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.logo img {
+    max-width: 190px;
+    height: auto;
+    margin-left: -20rem;
+}
+
+/* ==============================
+   NAVBAR
+============================== */
+.navbar a {
+    color: black;
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.navbar a:hover {
+    color: whitesmoke;
+    border-bottom: 0.1rem solid whitesmoke;
+    padding-bottom: 0.5rem;
+    transform: scale(1.1);
+}
+
+.icons img {
+    margin: 0.2rem;
+    cursor: pointer;
+}
+.icons img:hover {
+    transform: scale(1.4);
+}
+
+/* HAMBURGUER MENU */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background: black;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+/* ==============================
+   BANNERS
+============================== */
+.sobre {
+    background: url("../img/banner.webp") no-repeat;
+    background-position: left;
+    background-size: auto;
+    position: absolute;
+    width: 100%;
+    height: 600px;
+    margin-top: 9.2rem;
+    align-items: center;
+}
+
+.banner1 {
+    background: url("../img/banner_inicio.webp") no-repeat;
+    background-position: right;
+    background-size: auto;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    margin-top: 9.2rem;
+    align-items: center;
+}
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    background-color: var(--main-color);
+    color: var(--black);
+    border: var(--border);
+    border-radius: 0.1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 1.5rem;
+}
+
+.btn:hover {
+    background-color: var(--black);
+    color: var(--main-color);
+    transform: scale(1.1);
+}
+
+footer {
+    position: relative;
+    margin-top: auto;    
+    left: 0;
+    width: 100%;
+    background-color: #212529;
+    color: white;
+    text-align: center;
+    padding: 1px;
+    font-size: 0.8rem;
+    background-color: var(--main-color);
+    padding: 10px 0;
+    border-top: 0.1rem solid #010103;
+
+}
+.container-footer{
+    max-width: 4000px;
+    padding: 0 4%;
+    margin: auto;
+}
+.row-footer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-col{
+    width: 45%;
+    padding: 5 15px;
+}
+.footer-col h4{
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+    font-weight: 500;
+    position: relative;
+    text-transform: uppercase;
+    
+}
+.footer-col ul{
+    list-style: none;
+}
+.footer-col ul li{
+    margin: 10px 0;
+}
+.footer-col ul li a{
+    font-size: 18px;
+    text-transform: capitalize;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+.footer-col ul li a:hover{
+    color: #cecdcd;
+    padding-left: 10px;
+}
+
+.footer-col .form-sub input{
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    background-color: var(--main-color);
+}
+.footer-col .form-sub input::placeholder{
+    color: white;
+}
+.footer-col .form-sub button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px; 
+    font-size: 17px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: var(--main-color);
+    border-radius: 3px;
+    font-weight: bold;
+    background-color: white;        
+}
+
+
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        background-color: var(--main-color);
+        border: 2px solid var(--black);
+        position: absolute;
+        top: 70px;           /* Ajusta a posição da navbar */
+        left: 0;
+        width: 200px;
+        padding: 5px;
+    }
+
+    nav a {
+        padding: 10px 0;
+        display: block;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .logo img {
+        margin-left: 0; /* Ajusta a margem para telas pequenas */
+        max-width: 200px; /* Reduz o tamanho da logo */
+    }
+
+    .banner1 {
+    background: url("../img/banner.webp") no-repeat;
+    height: auto; /* Ajusta a altura para telas pequenas */
+    margin-top: auto; /* Centraliza verticalmente */
+    background-position: right;
+    position: relative;
+    align-items: center;
+}
+
+.title {
+    font-size: auto;
+    color: var(--main-color);
+    text-align: center;
+}
+
+.title span {
+    color: var(--main-color);
+}
+
+.footer-col{
+        width: 50%;
+        margin-bottom: 30px;
+}
+
+}

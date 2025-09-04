@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$user = "soberano_user";
-$pass = "senhaSegura123";
+$user = "soberano";
+$pass = "123";
 $db   = "soberano";
 
 $conn = new mysqli($host, $user, $pass, $db);
