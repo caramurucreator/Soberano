@@ -15,6 +15,8 @@ $resultado = $conn->query("SELECT * FROM clientes ORDER BY id DESC");
 <body>
     <h1>Gerenciar Clientes</h1>
     <a href="index.php">⬅ Voltar</a>
+    <a href="adicionar_cliente.php" class="btn">+ Novo cliente</a>
+
 
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>

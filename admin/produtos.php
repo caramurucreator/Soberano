@@ -14,7 +14,7 @@ $resultado = $conn->query("SELECT * FROM produtos ORDER BY id DESC");
 </head>
 <body>
     <h1>Gerenciar Produtos</h1>
-            <a href="index.php" class="btn">Voltar ao painel</a>
+            <a href="index.php" class="btn">⬅ Voltar</a>
             <a href="adicionar_produto.php" class="btn">+ Novo produto</a>
 
     <table>

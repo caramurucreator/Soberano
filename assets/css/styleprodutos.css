@@ -233,6 +233,33 @@ footer {
     background-color: white;        
 }
 
+.produtos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.produto-card{
+    max-width: auto;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 400px));
+    justify-items: center;
+    border: 0.1rem solid rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.produto-card img {
+    width: auto;
+    max-width: 500px;           
+    height: auto;          
+    max-height: 300px;     
+    object-fit: cover;    
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
 
 
 @media (max-width: 768px) {

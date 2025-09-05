@@ -39,6 +39,17 @@ include 'auth.php';
 </div>
 </header>
 
+<div>
+    <h1>Bem-vindo ao Painel Administrador</h1>
+    <h2>Caso deseje voltar à tela de PRODUTOS para conferência, selecione abaixo:</h2>
+
+    <div class="usuario_p">
+        
+        <a href="../produtos.php" class="btn">Análise de produtos</a>
+
+
+    </div>
+</div>
 
 
 </body>
