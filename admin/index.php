@@ -44,12 +44,34 @@ include 'auth.php';
     <h2>Caso deseje voltar à tela de PRODUTOS para conferência, selecione abaixo:</h2>
 
     <div class="usuario_p">
-        
         <a href="../produtos.php" class="btn">Análise de produtos</a>
-
-
     </div>
 </div>
+
+<footer>
+    <div class="container-footer">
+        <div class="row-footer">
+            <div class="footer-col">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="../sobre.php">Quem somos</a></li>
+                    <li><a href="clientes.php">Altere os usuários</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Produtos</h4>
+                <ul>
+                    <li><a href="produtos.php?categoria=chapeus">Chapéus</a></li>
+                    <li><a href="produtos.php?categoria=cintos">Cintos</a></li>
+                    <li><a href="produtos.php?categoria=calcas">Calças</a></li>
+                    <li><a href="produtos.php?categoria=botinas">Botinas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
 
 
 </body>

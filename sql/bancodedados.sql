@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS admin (
     senha VARCHAR(255) NOT NULL
 );
 
+INSERT INTO IF NOT EXISTS admin (email, senha) VALUES (soberano@gmail.com, soberano123);
+
 CREATE TABLE if not exists clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,

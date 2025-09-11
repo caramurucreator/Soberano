@@ -534,12 +534,14 @@ h2 {
 }
 
 .usuario_p{
-    padding: 4rem;
-    border: #010103 solid 0.1rem;
     width: 500px;
-    position: relative;
-    text-align: center;
-    left: 48rem;
+    height: 5rem;
+    margin-top: 8rem;
+    position: absolute;
+    font-size: 10rem;
+    border-radius: 1rem;
+    left: 38rem;
+    right: 0;
 }
 
 /* ==============================
