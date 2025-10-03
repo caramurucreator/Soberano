@@ -1,20 +1,32 @@
 <?php
+// Incluir autenticação e conexão
 include 'auth.php';
 include '../conexao.php';
 
+// Verifica ID
 if (!isset($_GET['id'])) die("ID inválido");
 $id = intval($_GET['id']);
 
+// Busca dados do cliente
+$stmt = $conn->prepare("SELECT * FROM clientes WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$cliente = $stmt->get_result()->fetch_assoc();
+
+if (!$cliente) die("Cliente não encontrado!");
+
+// Processa submissão do formulário
+$erro = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $email = trim($_POST['email']);
+    $senha = trim($_POST['senha']);
 
     if (empty($senha)) {
-        // Atualiza só email
+        // Atualiza apenas email
         $stmt = $conn->prepare("UPDATE clientes SET email=? WHERE id=?");
         $stmt->bind_param("si", $email, $id);
     } else {
-        // Atualiza email e senha (com hash)
+        // Atualiza email e senha
         $hash = password_hash($senha, PASSWORD_DEFAULT);
         $stmt = $conn->prepare("UPDATE clientes SET email=?, senha=? WHERE id=?");
         $stmt->bind_param("ssi", $email, $hash, $id);
@@ -27,11 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = "Erro: " . $stmt->error;
     }
 }
-
-$stmt = $conn->prepare("SELECT * FROM clientes WHERE id=?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$cliente = $stmt->get_result()->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -39,10 +46,11 @@ $cliente = $stmt->get_result()->fetch_assoc();
 <head>
     <meta charset="UTF-8" />
     <title>Editar Cliente</title>
-    <link rel="stylesheet" href="../assets/css/admincliente.css">
+<link rel="stylesheet" href="../assets/css/editarcliente.css">
 </head>
 <body>
-        <header id="navbar">
+
+    <header id="navbar">
     <div class="header-container">
         <div class="menu-toggle" id="menu-toggle">
             <span></span>
@@ -71,20 +79,26 @@ $cliente = $stmt->get_result()->fetch_assoc();
 </div>
 </header>
 
+<!-- CONTEÚDO -->
+<main>
     <h1>Editar Cliente</h1>
-    <a href="clientes.php">⬅ Voltar</a>
-    <?php if (isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
+    <a href="clientes.php" class="voltar">⬅ Voltar</a>
 
-    <form method="post">
-        <label>Email:</label><br>
-        <input type="email" name="email" value="<?= htmlspecialchars($cliente['email']) ?>" required><br><br>
+    <?php if($erro) echo "<p style='color:red;'>$erro</p>"; ?>
 
-        <label>Senha (deixe vazio para não alterar):</label><br>
-        <input type="password" name="senha"><br><br>
+    <form method="post" class="form-editar">
+        <label>Email:</label>
+        <input type="email" name="email" value="<?= htmlspecialchars($cliente['email']) ?>" required>
+
+        <label>Senha (deixe vazio para não alterar):</label>
+        <input type="password" name="senha">
 
         <input type="submit" value="Salvar Alterações">
     </form>
-    <footer>
+</main>
+
+<!-- FOOTER -->
+<footer>
     <div class="container-footer">
         <div class="row-footer">
             <div class="footer-col">
@@ -94,7 +108,6 @@ $cliente = $stmt->get_result()->fetch_assoc();
                     <li><a href="clientes.php">Altere os usuários</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Produtos</h4>
                 <ul>

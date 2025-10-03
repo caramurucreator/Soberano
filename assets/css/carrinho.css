@@ -56,6 +56,8 @@ header {
     align-items: center;
     justify-content: space-between;
     position: relative;
+    padding: 0 1rem;
+
 }
 
 .logo img {
@@ -253,6 +255,35 @@ header {
     transform: scale(1.1);
 }
 
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.sair {
+    margin-left: 1.5rem; /* separa o botão sair dos ícones */
+}
+
+.sair a {
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 1.5rem;
+    background-color: #D8334A;
+    color: #fff;
+    border: var(--border);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.sair a:hover {
+    transform: scale(1.1);
+}
 
 /* ==============================
    TÍTULOS

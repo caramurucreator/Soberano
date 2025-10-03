@@ -127,7 +127,7 @@ header {
     margin-top: 9.2rem;
     align-items: center;
 }
-.btn {
+.botao {
     display: inline-block;
     padding: 0.8rem 1.3rem;
     background-color: var(--main-color);
@@ -141,7 +141,7 @@ header {
     border-radius: 1.5rem;
 }
 
-.btn:hover {
+.botao:hover {
     background-color: var(--black);
     color: var(--main-color);
     transform: scale(1.1);

@@ -1,54 +1,44 @@
 <?php
 session_start();
 include 'conexao.php';
+include 'cart_functions.php';
 
-// Remover item do carrinho
+requireLogin();
+
+$cliente_id = $_SESSION['cliente_id'];
+
 if (isset($_GET['remover'])) {
-    $id = intval($_GET['remover']);
-    unset($_SESSION['carrinho'][$id]);
+    $produto_id = intval($_GET['remover']);
+    removeFromCart($conn, $cliente_id, $produto_id);
     header("Location: carrinho.php");
     exit;
 }
 
-// Atualizar quantidade
 if (isset($_POST['atualizar'])) {
-    foreach ($_POST['quantidade'] as $id => $qtd) {
-        $id = intval($id);
+    foreach ($_POST['quantidade'] as $produto_id => $qtd) {
+        $produto_id = intval($produto_id);
         $qtd = max(1, intval($qtd));
-        $_SESSION['carrinho'][$id] = $qtd;
+        updateCartQuantity($conn, $cliente_id, $produto_id, $qtd);
     }
     header("Location: carrinho.php");
     exit;
 }
 
-// Buscar produtos do carrinho
-$produtos = [];
-$totalItens = 0;
-$totalPreco = 0.0;
-
-if (!empty($_SESSION['carrinho'])) {
-    $ids = implode(',', array_keys($_SESSION['carrinho']));
-    $result = $conn->query("SELECT * FROM produtos WHERE id IN ($ids)");
-    while ($row = $result->fetch_assoc()) {
-        $id = $row['id'];
-        $qtd = $_SESSION['carrinho'][$id];
-        $row['quantidade'] = $qtd;
-        $row['subtotal'] = $row['preco'] * $qtd;
-        $produtos[] = $row;
-        $totalItens += $qtd;
-        $totalPreco += $row['subtotal'];
-    }
-}
+$produtos = getCartItems($conn, $cliente_id);
+$totalItens = getCartCount($conn, $cliente_id);
+$totalPreco = getCartTotal($conn, $cliente_id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soberano</title>
+    <title>Carrinho - Soberano</title>
     <link rel="stylesheet" href="assets/css/carrinho.css">
 </head>
 <body>
+
+
 <header id="navbar">
     <div class="header-container">
         <div class="menu-toggle" id="menu-toggle">
@@ -68,6 +58,11 @@ if (!empty($_SESSION['carrinho'])) {
             <span style="margin: 0 1em;">ㅤㅤ</span>
             <a href="carrinho.php"><img width="26" height="26" src="https://img.icons8.com/material-rounded/24/shopping-cart.png" alt="Carrinho"/></a>
         </div>
+        <div class="sair">
+                        <?php if (isLoggedIn()): ?>
+                <a href="logout.php" class="sair" >Sair</a>
+            <?php endif; ?>
+        </div>
     </div>
 </header>
 
@@ -75,11 +70,11 @@ if (!empty($_SESSION['carrinho'])) {
     <section class="carrinho-section">
         <h2 class="title">Seu Carrinho</h2>
         <div class="carrinho-wrapper">
-            <!-- PRODUTOS -->
             <form method="post">
                 <div class="carrinho-container">
                     <?php if (empty($produtos)): ?>
-                        <p>Seu carrinho está vazio.</p>
+                        <p class="empty-cart">Seu carrinho está vazio.</p>
+                        <a href="produtos.php" class="btn">Continuar Comprando</a>
                     <?php else: ?>
                         <?php foreach ($produtos as $item): ?>
                             <div class="carrinho-item">
@@ -88,13 +83,14 @@ if (!empty($_SESSION['carrinho'])) {
                                     <h3><?php echo htmlspecialchars($item['nome']); ?></h3>
                                     <p class="preco">R$ <?php echo number_format($item['preco'],2,",","."); ?></p>
                                     <div class="quantidade">
-                                        <button type="button" onclick="alterarQtd(<?php echo $item['id']; ?>, -1)">-</button>
-                                        <input type="number" name="quantidade[<?php echo $item['id']; ?>]" id="qtd_<?php echo $item['id']; ?>" value="<?php echo $item['quantidade']; ?>" min="1">
-                                        <button type="button" onclick="alterarQtd(<?php echo $item['id']; ?>, 1)">+</button>
+                                        <button type="button" onclick="alterarQtd(<?php echo $item['produto_id']; ?>, -1)">-</button>
+                                        <input type="number" name="quantidade[<?php echo $item['produto_id']; ?>]" id="qtd_<?php echo $item['produto_id']; ?>" value="<?php echo $item['quantidade']; ?>" min="1">
+                                        <button type="button" onclick="alterarQtd(<?php echo $item['produto_id']; ?>, 1)">+</button>
                                     </div>
                                 </div>
                                 <div class="item-remove">
-                                    <a href="carrinho.php?remover=<?php echo $item['id']; ?>" class="remover">Remover</a>
+                                    <p class="subtotal">Subtotal: R$ <?php echo number_format($item['subtotal'],2,",","."); ?></p>
+                                    <a href="carrinho.php?remover=<?php echo $item['produto_id']; ?>" class="remover">Remover</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -105,15 +101,14 @@ if (!empty($_SESSION['carrinho'])) {
                 <?php endif; ?>
             </form>
 
-            <!-- RESUMO -->
+            <?php if (!empty($produtos)): ?>
             <div class="carrinho-summary">
                 <h3>Resumo do Pedido</h3>
                 <p>Itens: <span id="total-itens"><?php echo $totalItens; ?></span></p>
-                <p>Total: R$ <span id="total-preco"><?php echo number_format($totalPreco,2,",","."); ?></span></p>
-                <?php if ($totalItens > 0): ?>
-                    <a href="checkout.php" class="btn">Finalizar Compra</a>
-                <?php endif; ?>
+                <p class="total-preco">Total: R$ <span id="total-preco"><?php echo number_format($totalPreco,2,",","."); ?></span></p>
+                <a href="checkout.php" class="btn btn-checkout">Finalizar Compra</a>
             </div>
+            <?php endif; ?>
         </div>
     </section>
 </main>

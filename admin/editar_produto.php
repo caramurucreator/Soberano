@@ -37,6 +37,8 @@ $produto = $stmt->get_result()->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>Editar Produto</title>
+    <link rel="stylesheet" href="../assets/css/adminprodutos.css">
+
 </head>
 <body>
         <header id="navbar">

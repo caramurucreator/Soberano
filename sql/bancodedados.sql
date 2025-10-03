@@ -92,3 +92,51 @@ INSERT INTO produtos (nome, descricao, preco, categoria, sexo, imagem) VALUES
 ('Calça Country', 'Preta Cravejada', 270.70, 'calcas', 'unissex', 'calca3.webp'),
 ('Calça Country Clara Feminina', 'Cravejada Light', 289.90, 'calcas', 'feminino', 'calca4.webp');
 
+USE soberano;
+
+CREATE TABLE IF NOT EXISTS carrinhos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL DEFAULT 1,
+    data_adicao TIMESTAMP DEFAULT CURRENT_timestamp,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_cart_item (cliente_id, produto_id)
+);
+
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    status ENUM('pendente', 'pago', 'cancelado', 'enviado', 'entregue') DEFAULT 'pendente',
+    metodo_pagamento ENUM('pix', 'credito', 'debito') NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS pedidos_itens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+CREATE TABLE IF NOT EXISTS pagamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    mercadopago_id VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'pending',
+    metodo ENUM('pix', 'credito', 'debito') NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    pix_qr_code TEXT,
+    pix_qr_code_base64 LONGTEXT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE
+);

@@ -227,6 +227,196 @@ header {
 }
 
 /* ==============================
+   CHECKOUT PAGE
+============================== */
+
+.checkout-section {
+    margin-top: 12rem;
+    text-align: center;
+}
+
+.checkout-section .title {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    color: var(--black);
+}
+
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Resumo do pedido */
+.order-summary {
+    flex: 1 1 300px;
+    background-color: rgba(163, 128, 104, 0.1);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: left;
+    box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.1);
+}
+
+.order-summary h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.item-row span {
+    color: var(--black);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: var(--black);
+}
+
+.order-summary hr {
+    border: none;
+    border-top: 0.1rem solid rgba(0,0,0,0.2);
+    margin: 1rem 0;
+}
+
+/* Pagamentos */
+.payment-section {
+    flex: 1 1 400px;
+    background-color: rgba(163, 128, 104, 0.1);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.payment-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+}
+
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-btn {
+    flex: 1 1 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem;
+    background-color: var(--main-color);
+    color: var(--black);
+    border: var(--border);
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.payment-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.payment-btn:hover {
+    background-color: var(--black);
+    color: var(--main-color);
+    transform: scale(1.05);
+}
+
+/* Formulários de pagamento */
+.payment-form {
+    margin-top: 1.5rem;
+    display: none;
+}
+
+.payment-form h4 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+}
+
+.payment-form p {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: var(--black);
+}
+
+.payment-form label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    color: var(--black);
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: var(--border);
+    border-radius: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.cartao-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.cartao-row div {
+    flex: 1;
+}
+
+.btn-submit {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: var(--black);
+    padding: 0.8rem 1.5rem;
+    border: var(--border);
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.btn-submit:hover {
+    background-color: var(--black);
+    color: var(--main-color);
+    transform: scale(1.05);
+}
+
+/* Resultado PIX */
+#pix-result, #cartao-result {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.pix-qr-code img {
+    margin: 1rem 0;
+    max-width: 250px;
+    border: 0.2rem solid var(--black);
+    border-radius: 1rem;
+}
+
+/* ==============================
    BOTÕES
 ============================== */
 .btn {

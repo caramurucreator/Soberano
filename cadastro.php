@@ -1,18 +1,18 @@
 <?php
 session_start();
 include 'conexao.php';
+include 'cart_functions.php';
 
 $mensagem = '';
+$redirect = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+$add_product = isset($_GET['add']) ? intval($_GET['add']) : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $senha = $_POST['senha'];
 
     if (isset($_POST['cadastrar'])) {
-        // Cadastro de novo cliente
         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-        // Verificar se o e-mail já existe
         $verifica = $conn->prepare("SELECT id FROM clientes WHERE email = ?");
         $verifica->bind_param("s", $email);
         $verifica->execute();
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("ss", $email, $senha_hash);
 
             if ($stmt->execute()) {
-                $mensagem = "Conta criada com sucesso!";
+                $mensagem = "Conta criada com sucesso! Faça login para continuar.";
             } else {
                 $mensagem = "Erro ao cadastrar: " . $stmt->error;
             }
@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['login'])) {
-        // Login de cliente
         $stmt = $conn->prepare("SELECT id, senha FROM clientes WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -45,7 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($senha, $usuario['senha'])) {
                 $_SESSION['cliente_id'] = $usuario['id'];
                 $_SESSION['cliente_email'] = $email;
-                header("Location: carrinho.php");
+                
+                migrateSessionCartToDatabase($conn, $usuario['id']);
+                
+                if (!empty($redirect)) {
+                    if ($add_product > 0) {
+                        addToCart($conn, $usuario['id'], $add_product, 1);
+                        header("Location: " . $redirect . "?added=1");
+                    } else {
+                        header("Location: " . $redirect);
+                    }
+                } else {
+                    header("Location: carrinho.php");
+                }
                 exit;
             } else {
                 $mensagem = "Senha incorreta.";
@@ -62,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soberano</title>
+    <title>Cadastro/Login - Soberano</title>
     <link rel="stylesheet" href="assets/css/cadastro.css">
 </head>
 <body>
@@ -71,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="menu-toggle" id="menu-toggle">
                 <span></span><span></span><span></span>
             </div>
-            <a href="#" class="logo">
-                <img src="assets/img/logo.webp" alt="Logo" onclick="window.location.href='index.php'" style="cursor:pointer;">
+            <a href="index.php" class="logo">
+                <img src="assets/img/logo.webp" alt="Logo" style="cursor:pointer;">
             </a>
             <nav class="navbar">
                 <a href="index.php">Home</a>
@@ -90,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </header>
 
-    <form method="post" action="cadastro.php">
+    <form method="post" action="cadastro.php<?php echo !empty($redirect) ? '?redirect=' . urlencode($redirect) . '&add=' . $add_product : ''; ?>">
         <h1>SOBERANO</h1>
 
         <?php if (!empty($mensagem)): ?>
@@ -107,8 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" name="login" value="LOGIN">
     </form>
 
-        <a href="admin/login.php" class="botao">Acessar como Administrador</a>
-
+    <a href="admin/login.php" class="botao">Acessar como Administrador</a>
 
     <script>
         const menuToggle = document.getElementById('menu-toggle');
