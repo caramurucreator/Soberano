@@ -96,7 +96,7 @@ $itemAdded = isset($_GET['added']) && $_GET['added'] == 1;
 
         <div class="produtos-container">
             <?php while($row = $result->fetch_assoc()): ?>
-                <div class="produto-cartao">
+                <div class="produto-card">
                     <img src="assets/img/<?php echo $row['imagem']; ?>" alt="<?php echo $row['nome']; ?>">
                     <h3><?php echo $row['nome']; ?></h3>
                     <p><?php echo $row['descricao']; ?></p>

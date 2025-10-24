@@ -1,3 +1,8 @@
+<?php
+session_start();
+include 'conexao.php';
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,53 +20,86 @@
 
 <body>
 <header id="navbar">
-    <div class="header-container">
-        <div class="menu-toggle" id="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-        <a href="index.php" class="logo">
-            <img src="assets/img/logo.webp" alt="Logo da Soberano" style="cursor:pointer;">
+    <a href="index.php" class="logo">
+        <img src="assets/img/logo.webp" alt="Logo da Soberano" style="cursor:pointer;">
+    </a>
+
+    <nav class="navbar">
+        <a href="index.php">Home</a>      
+        <a href="sobre.php">Sobre</a> 
+        <a href="produtos.php" class="ativo">Produtos</a>
+        <a href="cadastro.php">Conta</a>
+    </nav>
+
+    <div class="icons">
+        <a href="buscar.php"><img width="24" height="24" src="https://img.icons8.com/forma-bold/24/search.png" alt="Pesquisar"/></a>
+        <span style="margin: 0 1em;">ㅤㅤ</span>
+        <a href="carrinho.php">
+            <img width="26" height="26" src="https://img.icons8.com/material-rounded/24/shopping-cart.png" alt="Carrinho de Compras"/>
         </a>
-
-        <nav class="navbar">
-            <a href="index.php">Home</a>      
-            <a href="sobre.php">Sobre</a> 
-            <a href="produtos.php">Produtos</a>
-            <a href="cadastro.php">Conta</a>
-        </nav>
-
-        <div class="icons">
-            <a href="buscar.php"><img width="24" height="24" src="https://img.icons8.com/forma-bold/24/search.png" alt="Pesquisar"/></a>
-            <span style="margin: 0 1em;">ㅤㅤ</span>
-            <a href="carrinho.php">
-                <img width="26" height="26" src="https://img.icons8.com/material-rounded/24/shopping-cart.png" alt="Carrinho de Compras"/>
-            </a>
-        </div>
     </div>
 </header>
 
 <main>
-    <div class="banner1">
-        <section id="home">
-            <div class="content">
-                <h3>BEM-VINDO À <span>SOBERANO</span></h3>
-                <p>O LOCAL DOS AGROS</p>
-                <a href="produtos.php" class="botao">Compre Já!</a>
+    <!-- BANNER PRINCIPAL -->
+    <section id="home" class="banner1">
+        <div class="content">
+            <h3>BEM-VINDO À <span>SOBERANO</span></h3>
+            <p>A verdadeira casa da moda country!</p>
+            <div class="banner-images">
+                <img src="assets/img/banner.webp" alt="Imagem 1">
+                <img src="assets/img/banner_inicio.webp" alt="Imagem 2">
+                <img src="assets/img/banner.webp" alt="Imagem 3">
             </div>
-        </section>
-    </div>
+            <a href="#produtos" class="botao">Compre Já!</a>
+        </div>
+    </section>
 
-    <div class="about">
-        <section class="sobre">
-            <div class="conteudo">
-                <h3>O QUE FAZ A NOSSA MODA SER ESPECIAL</h3>
-                <p>A Soberano traz autenticidade, tradição e estilo do campo para a cidade. Qualidade e confiança em cada detalhe.</p>
-                <a href="sobre.php" class="btn">Veja mais sobre</a>
+    <!-- SEÇÃO DE PRODUTOS ALEATÓRIOS -->
+    <?php
+// Busca 4 produtos aleatórios
+$sql = "SELECT id, nome, descricao, preco, imagem FROM produtos ORDER BY RAND() LIMIT 4";
+$result = $conn->query($sql);
+?>
+
+<div class="produtos-container">
+    <?php if ($result && $result->num_rows > 0): ?>
+        <?php while($row = $result->fetch_assoc()): ?>
+            <div class="produto-card">
+                <img src="assets/img/<?php echo htmlspecialchars($row['imagem']); ?>" 
+                     alt="<?php echo htmlspecialchars($row['nome']); ?>">
+                <h3><?php echo htmlspecialchars($row['nome']); ?></h3>
+                <p><?php echo htmlspecialchars($row['descricao']); ?></p>
+                <p class="preco">R$ <?php echo number_format($row['preco'], 2, ",", "."); ?></p>
+                <a href="produtos.php" class="botao">Ver Mais</a>
             </div>
-        </section>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>Nenhum produto encontrado.</p>
+    <?php endif; ?>
+</div>
+
+
+    <!-- SEÇÃO SOBRE -->
+     <div class="about">
+    <section class="sobre">
+        <div class="conteudo">
+            <h3>O QUE FAZ A NOSSA MODA SER ESPECIAL</h3>
+            <div class="banner-images">
+                <img src="assets/img/pessoa1.webp" alt="Pessoa 1">
+                <img src="assets/img/pessoa2.webp" alt="Pessoa 2">
+                <img src="assets/img/pessoa3.webp" alt="Pessoa 3">
+            </div>
+            <p>A Soberano traz autenticidade, tradição e estilo do campo para a cidade. Qualidade e confiança em cada detalhe.</p>
+            <a href="sobre.php" class="btn">Veja mais sobre</a>
+        </div>
+    </section>
     </div>
 </main>
 
@@ -75,16 +113,6 @@
                     <li><a href="cadastro.php">Crie sua Conta</a></li>
                 </ul>
             </div>
-
-            <div class="footer-col">
-                <h4>Produtos</h4>
-                <ul>
-                    <li><a href="produtos.php?categoria=chapeus">Chapéus</a></li>
-                    <li><a href="produtos.php?categoria=cintos">Cintos</a></li>
-                    <li><a href="produtos.php?categoria=calcas">Calças</a></li>
-                    <li><a href="produtos.php?categoria=botinas">Botinas</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </footer>
@@ -92,10 +120,7 @@
 <script>
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('.navbar');
-
-    menuToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-    });
+    menuToggle.addEventListener('click', () => nav.classList.toggle('active'));
 </script>
 
 </body>
